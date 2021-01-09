@@ -396,32 +396,17 @@ body {
 </head>
 <body>
 <div dir="rtl" class="ui segment">
-  <div class="ui form">
-    <div class="field">
-      <label>הכניסו מילה:</label>
-      <input type="text" name="word" tabindex="0">
-    </div>
-    <button class="ui primary send button" type="button">שמור</button>
-  </div>
+  <h3 id="word" class="ui right aligned header">
+    
+  </h3>
+  <div class="ui primary next button">הבא</div>
+  <div class="ui basic reset button">שלב חדש</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 window.Bins = (my => {
   
   const SECRET_KEY = '$2b$10$4BdTbwQVlX4NpATPB.yC/e11PNq/O4O2XczOu/n0H1qELs7B1MqV.'
-
-  my.addWord = word => {
-    my.load()
-      .then(() => {
-        my._json.words.push(word)
-        return save()
-      }).then(() => my.load())
-      .then(() => {
-        if(my._json.words.indexOf(word) === -1) {
-          throw new Error('Syncing problem')
-        }
-      })
-  }
 
   my.load = () => {
     return new Promise((res, rej) => {
@@ -430,6 +415,7 @@ window.Bins = (my => {
       req.onreadystatechange = () => {
         if (req.readyState == XMLHttpRequest.DONE) {
           my._json = JSON.parse(req.responseText)
+          console.log(req.responseText)
           res(req.responseText)
         }
       };
@@ -440,12 +426,31 @@ window.Bins = (my => {
     })
   }
 
+  my.randomWord = () => {
+    const options = my._json.words.filter(word => !my._json.used.includes(word))
+    if (options.length === 0) {
+    	return null
+    }
+    return options[Math.floor(Math.random() * options.length)]
+  }
+
+  my.useWord = word => {
+    my._json.used.push(word)
+    return save()
+  }
+
+  my.reset = () => {
+    my._json.used = []
+    return save()
+  }
+
   const save = () => {
     return new Promise((res, rej) => {
       let req = new XMLHttpRequest();
 
       req.onreadystatechange = () => {
         if (req.readyState == XMLHttpRequest.DONE) {
+          console.log(req.responseText)
           res(req.responseText)
         }
       };
@@ -462,19 +467,33 @@ window.Bins = (my => {
 })({})
 
 $(document).ready(() => {
-  function submit = () => {
-    const $word = $('[name="word"]')
-    const word = $word.val()
-    $word.val('')
-    Bins.addWord(word)
-  }
-  $('.send').on('click', () => {
-  	submit()
-  })
-  $('[name="word"]').keypress(event => {
-    if((event.keyCode ? event.keyCode : event.which) == '13') {
-      submit()
+  Bins.load().then(() => {
+  	function next() {
+  	  const lastWord = $('#word').text().trim()
+      const promise = (lastWord === '') ? Promise.resolve() : Bins.useWord(lastWord)
+      promise.then(() => {
+        const nextWord = Bins.randomWord()
+        if (nextWord === null) {
+          $('.reset').click()
+        } else {
+          $('#word').text(nextWord)
+        }
+      })
+  	}
+    $('.next').on('click', () => {
+      next()
+    })
+
+    $('.reset').on('click', () => {
+      Bins.reset()
+      $('#word').text('')
+    })
+
+    $('body').keypress(event => {
+    if((event.keyCode ? event.keyCode : event.which) == '32') {
+      next()
     }
+  })
   })
 })
 </script>
