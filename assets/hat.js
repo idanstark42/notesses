@@ -4,12 +4,14 @@ class Hat {
   }
 
   init() {
-    return API.load(this.id).then(json => Object.assign(this, json))
+    return this.load()
   }
 
   addWord(word) {
-    this.words.push(word)
-    return this.save()
+    return this.load().then(() => {
+      this.words.push(word)
+      return this.save()
+    })
   }
 
   getRandomWord() {
@@ -37,5 +39,9 @@ class Hat {
 
   save() {
     return API.save(this.id, { words: this.words, used: this.used })
+  }
+
+  load() {
+    return API.load(this.id).then(json => Object.assign(this, json))
   }
 }
