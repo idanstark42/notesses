@@ -8,23 +8,23 @@ window.Turn = (my => {
       }
     })
 
-    $('.reset').click(() => hat.reset())
+    $('.reset').click(() => my.hat.reset())
   }
 
   const next = () => {
-    const lastWord = word()
+    const lastWord = my.word()
     if (Boolean(lastWord)) {
-      hat.useWord(lastWord)
+      my.hat.useWord(lastWord)
     }
 
-    if(hat.count() === 0) {
-      hat.reset()
-      word(config.endOfStep)
+    if(my.hat.count() === 0) {
+      my.hat.reset()
+      my.word(config.endOfStep)
     } else {
-      word(hat.getRandomWord())
+      my.word(my.hat.getRandomWord())
     }
 
-    updateCount()
+    my.updateCount()
   }
 
   return my

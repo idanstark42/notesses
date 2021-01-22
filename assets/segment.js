@@ -6,7 +6,7 @@ window.Segment = (my => {
   let $word
 
   my.init = () => {
-    hat = new Hat(config.hatId)
+    my.hat = new Hat(config.hatId)
 
     $loader = $('.segment')
     $count = $('#count')
@@ -15,24 +15,24 @@ window.Segment = (my => {
     my.initEvents()
 
     hat.init().then(() => {
-      loading(false)
-      updateCount()
+      my.loading(false)
+      my.updateCount()
     })
   }
 
-  const loading = loading => {
+  my.loading = loading => {
     $loader.toggleClass('loading', loading)
   }
 
-  const toast = toast => {
+  my.toast = toast => {
   	$('body').toast(toast)
   }
 
-  const updateCount = () => {
+  my.updateCount = () => {
     $count.text(hat.count())
   }
 
-  const word = word => {
+  my.word = word => {
     if (word) {
       if ($word[0].prop('tagName') === 'INPUT') {
       	$word.val(word)

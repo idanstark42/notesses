@@ -11,14 +11,14 @@ window.Input = (my => {
 
   const submit = () => {
     const word = my.word()
-    word('')
-    loading(true)
-    hat.addWord(word).then(() => {
-      toast({ message: 'נוספה מילה', class: 'success', position: 'bottom right' })
-      updateCount()
+    my.word('')
+    my.loading(true)
+    my.hat.addWord(word).then(() => {
+      my.toast({ message: 'נוספה מילה', class: 'success', position: 'bottom right' })
+      my.updateCount()
     })
-    .catch(() => toast({ message: 'היתה בעיה', class: 'error', position: 'bottom right' }))
-    .then(() => loading(false))
+    .catch(() => my.toast({ message: 'היתה בעיה', class: 'error', position: 'bottom right' }))
+    .then(() => my.loading(false))
   }
 
   return my
