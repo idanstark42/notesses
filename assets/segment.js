@@ -1,6 +1,5 @@
 window.Segment = (my => {
 
-  let hat
   let $loader
   let $count
   let $word
@@ -14,7 +13,7 @@ window.Segment = (my => {
 
     my.initEvents()
 
-    hat.init().then(() => {
+    my.hat.init().then(() => {
       my.loading(false)
       my.updateCount()
     })
@@ -29,7 +28,7 @@ window.Segment = (my => {
   }
 
   my.updateCount = () => {
-    $count.text(hat.count())
+    $count.text(my.hat.count())
   }
 
   my.word = word => {
