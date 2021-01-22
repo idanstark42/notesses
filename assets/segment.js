@@ -32,7 +32,7 @@ window.Segment = (my => {
   }
 
   my.word = word => {
-    if (word) {
+    if (word === undefined) {
       if ($word.prop('tagName') === 'INPUT') {
       	$word.val(word)
       } else {

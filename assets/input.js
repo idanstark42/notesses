@@ -16,6 +16,7 @@ window.Input = (my => {
     my.hat.addWord(word).then(() => {
       my.toast({ message: 'נוספה מילה', class: 'success', position: 'bottom right' })
       my.updateCount()
+      my.word('')
     })
     .catch(() => my.toast({ message: 'היתה בעיה', class: 'error', position: 'bottom right' }))
     .then(() => my.loading(false))
