@@ -33,13 +33,13 @@ window.Segment = (my => {
 
   my.word = word => {
     if (word) {
-      if ($word[0].prop('tagName') === 'INPUT') {
+      if ($word.prop('tagName') === 'INPUT') {
       	$word.val(word)
       } else {
       	$word.text(word)
       }
     } else {
-      if ($word[0].prop('tagName') === 'INPUT') {
+      if ($word.prop('tagName') === 'INPUT') {
       	$word.val().trim()
       } else {
       	$word.text().trim()
