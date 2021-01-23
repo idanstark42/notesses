@@ -26,6 +26,8 @@ class Hat {
   }
 
   useWord(word) {
+    const index = this.words.findIndex(w => word === w)
+    this.words.splice(index, 1)
     return this.request('useWord', [this.id, word])
   }
 
@@ -34,6 +36,8 @@ class Hat {
   }
 
   reset() {
+    this.words = this.words.concat(this.used)
+    this.used = []
     return this.request('reset', [this.id])
   }
 
@@ -46,10 +50,7 @@ class Hat {
   }
 
   static create() {
-    return API.create().then(res => {
-      console.log(res)
-      return new Hat(res.data.id)
-    })
+    return API.create().then(res => new Hat(res.data.id))
   }
 
   request(action, params) {

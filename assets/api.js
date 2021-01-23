@@ -17,11 +17,11 @@ window.API = (my => {
   }
 
   my.reset = id => {
-    return request({ action: 'reset' })
+    return request({ action: 'reset', id })
   }
 
   my.delete = id => {
-    return request({ action: 'delete' })
+    return request({ action: 'delete', id })
   }
 
   const request = params => {

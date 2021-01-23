@@ -37,9 +37,11 @@ window.Segment = (my => {
   	$('body').toast(toast)
   }
 
-  my.updateCount = () => {
+  my.updateCount = (shouldUpdateCountUp=true) => {
     $count.text(my.hat.count())
-    countUp = countUp === null ? 0 : countUp + 1
+    if (shouldUpdateCountUp) {
+      countUp = (countUp === null) ? 0 : countUp + 1
+    }
     $countUp.text(countUp)
   }
 
@@ -54,7 +56,7 @@ window.Segment = (my => {
       if ($word.prop('tagName') === 'INPUT') {
       	$word.val(word)
       } else {
-      	$word.text(word)
+      	$word.html(word)
       }
     }
   }

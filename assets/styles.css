@@ -53,16 +53,25 @@ input[type="text"] {
 }
 
 #turn .stats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
   background: white;
   width: calc(100% + 2rem);
   display: flex;
   justify-content: space-evenly;
-  margin: -2rem;
   padding: 1rem;
+}
+
+#turn #word {
+  direction: rtl;
+  text-align: center;
 }
 
 .segment {
   width: 30%;
+  position: unset !important;
 }
 
 @media only screen and (max-width: 767px) {
@@ -81,5 +90,10 @@ input[type="text"] {
 
   .segment .fluid.input {
     width: 80%;
+  }
+
+  #turn .stats {
+    margin: -1rem !important;
+    position: relative !important;
   }
 }
