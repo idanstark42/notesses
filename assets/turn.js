@@ -7,8 +7,6 @@ window.Turn = (my => {
         next()
       }
     })
-
-    $('.reset').click(() => my.hat.reset())
   }
 
   const next = () => {

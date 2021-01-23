@@ -7,6 +7,8 @@ window.Input = (my => {
         submit()
       }
     })
+
+    $('#to-game').attr('href', `${document.location.href.replace('input.html', 'turn.html')}`)
   }
 
   const submit = () => {

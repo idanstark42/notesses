@@ -1,10 +1,6 @@
 class Hat {
-  constructor(data) {
-    if (data.constructor === Object) {
-      Object.assign(this, data)
-    } else {
-      this.id = data
-    }
+  constructor(id) {
+    this.id = id
   }
 
   init() {
@@ -12,7 +8,17 @@ class Hat {
   }
 
   addWord(word) {
-    return API.addWord(this.id, word).then(json => Object.assign(this, json))
+    return this.request('addWord', [this.id, word])
+      .then(() => this.load())
+      .then(() => { // Retrying if word is not in the collection
+        if (!this.words.includes(word)) {
+          return new Promise(res => {
+            setTimeout(() => {
+              this.addWord(word).then(res)
+            }, 20)
+          })
+        }
+      })
   }
 
   getRandomWord() {
@@ -20,7 +26,7 @@ class Hat {
   }
 
   useWord(word) {
-    return API.useWord(this.id, word).then(json => Object.assign(this, json))
+    return this.request('useWord', [this.id, word])
   }
 
   count() {
@@ -28,19 +34,25 @@ class Hat {
   }
 
   reset() {
-    return API.reset(this.id).then(json => Object.assign(this, json))
+    return this.request('reset', [this.id])
   }
 
   delete() {
-    return API.delete(this.id)
+    return this.request('delete', [this.id])
   }
 
   load() {
-    return API.load(this.id).then(json => Object.assign(this, json))
+    return this.request('load', [this.id])
   }
 
   static create() {
-    return API.create().then(json => new Hat(json))
+    return API.create().then(res => {
+      console.log(res)
+      return new Hat(res.data.id)
+    })
   }
 
+  request(action, params) {
+    return API[action].apply(API, params).then(({ data }) => Object.assign(this, data))
+  }
 }

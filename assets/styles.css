@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'varela';
+  src: url('./VarelaRound-Regular.ttf')
+}
+
+* {
+  font-family: 'varela' !important;
+}
+
 body {
   height: 100vh;
   width: 100vw;
@@ -8,14 +17,69 @@ body {
     background: whitesmoke;
 }
 
+input[type="text"] {
+  text-align: right !important;
+}
+
+.card {
+  padding: 1rem !important;
+}
+
+.card .content {
+  border: none !important;
+}
+
+.card .content .header {
+  font-size: 2rem !important;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center; 
+}
+
+.statistic {
+  width: 50%;
+}
+
+#turn .word-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3rem;
+  width: 100%;
+}
+
+#turn .stats {
+  background: white;
+  width: calc(100% + 2rem);
+  display: flex;
+  justify-content: space-evenly;
+  margin: -2rem;
+  padding: 1rem;
+}
+
 .segment {
   width: 30%;
 }
 
-.statistic {
-  width: 100%;
-}
+@media only screen and (max-width: 767px) {
+  .segment {
+    width: 100%;
+    height: 100%;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
 
-.loading.segment .statistic {
-  display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+  }
+
+  .segment .fluid.input {
+    width: 80%;
+  }
 }

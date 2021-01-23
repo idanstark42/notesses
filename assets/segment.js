@@ -1,15 +1,25 @@
 window.Segment = (my => {
 
-  let $loader
-  let $count
   let $word
+  let $count
+  let $countUp
+  let $loader
+
+  let countUp = null
 
   my.init = () => {
-    my.hat = new Hat(config.hatId)
+    const idRegex = document.location.search.match(/id=(.+?)($|&)/)
+    if (!idRegex) {
+      document.location.href = document.location.href.replace('input.html', 'index.html')
+      return
+    }
 
-    $loader = $('.segment')
-    $count = $('#count')
+    my.hat = new Hat(idRegex[1])
+
     $word = $('#word')
+    $count = $('#count')
+    $countUp = $('#count-up')
+    $loader = $('.segment')
 
     my.initEvents()
 
@@ -29,6 +39,8 @@ window.Segment = (my => {
 
   my.updateCount = () => {
     $count.text(my.hat.count())
+    countUp = countUp === null ? 0 : countUp + 1
+    $countUp.text(countUp)
   }
 
   my.word = word => {
