@@ -1,35 +1,35 @@
 window.API = (my => {
-  my.load = key => {
-    return new Promise((res, rej) => {
-      let req = new XMLHttpRequest();
 
-      req.onreadystatechange = () => {
-        if (req.readyState == XMLHttpRequest.DONE) {
-          res(JSON.parse(req.responseText))
-        }
-      };
+  const host = 'https://script.google.com/macros/s/AKfycbx3O8rI4OHO9euCQ9qTv9uQthszI9A1sFWV2Sbf49o-XoXO8cVMtl5pKQ/exec'
 
-      req.open("GET", `https://api.jsonbin.io/b/${key}`, true);
-      req.setRequestHeader("secret-key", config.secretAPIKey);
-      req.send()
-    })
+  my.load = id => {
+    return request('get', { id })
   }
 
-  my.save = (key, json) => {
-    return new Promise((res, rej) => {
-      let req = new XMLHttpRequest();
+  my.create = () => {
+    return request('post', { action: 'create' })
+  }
 
-      req.onreadystatechange = () => {
-        if (req.readyState == XMLHttpRequest.DONE) {
-          res(req.responseText)
-        }
-      };
+  my.addWord = (id, word) => {
+    return request('post', { action: 'add', id, word })
+  }
 
-      req.open("PUT", `https://api.jsonbin.io/b/${key}`, true);
-      req.setRequestHeader("Content-Type", "application/json")
-      req.setRequestHeader("secret-key", config.secretAPIKey)
-      req.setRequestHeader("versioning", false)
-      req.send(JSON.stringify(json))
+  my.useWord = (id, word) => {
+    return request('post', { action: 'use', id, word })
+  }
+
+  my.reset = id => {
+    return request('post', { action: 'reset' })
+  }
+
+  my.delete = id => {
+    return request('post', { action: 'delete' })
+  }
+
+  const request = (method, params) => {
+    return $.ajax({
+      method,
+      url: `${host}?${Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&')}`
     })
   }
 

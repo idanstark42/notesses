@@ -1,6 +1,10 @@
 class Hat {
-  constructor(id) {
-    this.id = id
+  constructor(data) {
+    if (data.constructor === Object) {
+      Object.assign(this, data)
+    } else {
+      this.id = data
+    }
   }
 
   init() {
@@ -8,10 +12,7 @@ class Hat {
   }
 
   addWord(word) {
-    return this.load().then(() => {
-      this.words.push(word)
-      return this.save()
-    })
+    return API.addWord(this.id, word).then(json => Object.assign(this, json))
   }
 
   getRandomWord() {
@@ -19,12 +20,7 @@ class Hat {
   }
 
   useWord(word) {
-    const wordIndex = this.words.findIndex(value => value === word)
-    
-    this.words.splice(wordIndex, 1)
-    this.used.push(word)
-    
-    return this.save()
+    return API.useWord(this.id, word).then(json => Object.assign(this, json))
   }
 
   count() {
@@ -32,16 +28,19 @@ class Hat {
   }
 
   reset() {
-    this.words = this.words.concat(this.used)
-    this.used = []
-    return this.save()
+    return API.reset(this.id).then(json => Object.assign(this, json))
   }
 
-  save() {
-    return API.save(this.id, { words: this.words, used: this.used })
+  delete() {
+    return API.delete(this.id)
   }
 
   load() {
     return API.load(this.id).then(json => Object.assign(this, json))
   }
+
+  static create() {
+    return API.create().then(json => new Hat(json))
+  }
+
 }
