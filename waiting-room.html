@@ -8,31 +8,9 @@
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 <body id="input">
-<div id="main" class="ui loading segment">
-  <div class="ui left action fluid input">
-    <button class="ui black send button" type="button">שמור</button>
-    <input id="word" dir="rtl" type="text" name="word" tabindex="0" placeholder="הכניסו מילה...">
-  </div>
-  <div class="stats">
-    <div class="ui statistic">
-      <div id="count" class="value">
-        ?
-      </div>
-      <div class="label">
-        מילים בכובע
-      </div>
-    </div>
-    <div class="ui statistic">
-      <div id="count-up" class="value">
-        0
-      </div>
-      <div class="label">
-        מילים שהכנסת
-      </div>
-    </div>
-  </div>
+<div id="main" class="ui segment">
   <div class="ui center aligned header">
-    <a id="to-game">למשחק</a>
+    <a id="to-game">תורי</a>
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -42,10 +20,10 @@
 <script src="./assets/api.js"></script>
 <script src="./assets/hat.js"></script>
 <script src="./assets/segment.js"></script>
-<script src="./assets/input.js"></script>
+<script src="./assets/waiting-room.js"></script>
 
 <script type="text/javascript">
-$(document).ready(() => Input.init())
+$(document).ready(() => WaitingRoom.init())
 </script>
 </body>
 </html>

@@ -8,7 +8,7 @@ window.Input = (my => {
       }
     })
 
-    $('#to-game').attr('href', `${document.location.href.replace('input.html', 'turn.html')}`)
+    $('#to-game').attr('href', `${document.location.href.replace('input.html', 'waiting-room.html')}`)
   }
 
   const submit = () => {
