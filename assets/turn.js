@@ -83,6 +83,7 @@ window.Turn = (my => {
         if (--timer < 0) {
             clearInterval(interval)
             onTimeUp()
+            Buzzer.buzz()
         }
     }, 1000)
   }
