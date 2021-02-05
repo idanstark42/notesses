@@ -31,6 +31,7 @@ window.Turn = (my => {
       my.hat.reset()
       currentWord = null
       my.updateCount(false)
+      Timer.start()
       next()
       return
     }
@@ -40,9 +41,8 @@ window.Turn = (my => {
       my.updateCount()
     } else {
       $timer.show()
-      startTimer(DURATION, $timer, () => {
-        endOfTurn()
-      })
+      Timer.onTimeUp(endOfTurn)
+      Timer.start(DURATION, $timer)
     }
 
     if(my.hat.count() === 0) {
@@ -56,6 +56,7 @@ window.Turn = (my => {
   const endOfStep = () => {
     my.word(config.endOfStep)
     currentWord = END_OF_STEP
+    Timer.pause()
   }
 
   const endOfTurn = () => {
@@ -64,28 +65,6 @@ window.Turn = (my => {
 
   const close = () => {
     document.location.href = document.location.href.replace('turn.html', 'waiting-room.html')
-  }
-
-  // TIMER
-
-  const startTimer = (duration, $display, onTimeUp) => {
-    let timer = duration, minutes, seconds
-    let interval = setInterval(() => {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10)
-
-        minutes = minutes < 10 ? '0' + minutes : minutes
-        seconds = seconds < 10 ? '0' + seconds : seconds
-
-        $display.text(minutes + ':' + seconds)
-        console.log(minutes + ':' + seconds)
-
-        if (--timer < 0) {
-            clearInterval(interval)
-            onTimeUp()
-            Buzzer.buzz()
-        }
-    }, 1000)
   }
 
 
