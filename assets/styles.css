@@ -85,8 +85,8 @@ input[type="text"] {
   display: none;
 }
 
-#end-of-turn {
-  position: absolute;
+.post-turn {
+  position: absolute !important;
   left: 35%;
   top: 35%;
   width: 30%;

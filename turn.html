@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="ui statistic">
-      <div id="count-up" class="value">
+      <div class="value count-up">
         0
       </div>
       <div class="label">
@@ -34,12 +34,25 @@
   </div>
 </div>
 <div id="timer">01:00</div>
-<div id="end-of-turn" class="ui segment">
+<div id="end-of-turn" class="ui segment post-turn">
   כל הכבוד!<br/>
   רק שאלה אחת אחרונה...
   <h2>האם הצלחת את המילה האחרונה?</h2>
   <div class="ui black used-word button">כן! הצלחתי אותה!</div>
   <div class="ui blue didnt-use-word button">לא... לא הצלחתי אותה :(</div>
+</div>
+<div id="final-stats" class="ui segment post-turn">
+  כל הכבוד!<br/>
+  הצלחתם...
+  <div class="ui statistic">
+    <div class="value count-up">
+      0
+    </div>
+    <div class="label">
+      מילים 
+    </div>
+  </div>
+  <div class="ui blue button">סיימתי</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>

@@ -18,7 +18,7 @@ window.Segment = (my => {
 
     $word = $('#word')
     $count = $('#count')
-    $countUp = $('#count-up')
+    $countUp = $('.count-up')
     $loader = $('.segment')
 
     my.initEvents()
@@ -41,8 +41,8 @@ window.Segment = (my => {
     $count.text(my.hat.count())
     if (shouldUpdateCountUp) {
       countUp = (countUp === null) ? 0 : countUp + 1
+      $countUp.text(countUp)
     }
-    $countUp.text(countUp)
   }
 
   my.word = word => {

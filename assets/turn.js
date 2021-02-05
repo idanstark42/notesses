@@ -1,7 +1,7 @@
 window.Turn = (my => {
 
   const END_OF_STEP = 'END OF STEP'
-  const DURATION = 60
+  const DURATION = 5
   
   let currentWord
   let $timer
@@ -16,12 +16,15 @@ window.Turn = (my => {
 
     $('.used-word').click(() => {
       $('.used-word').addClass('loading')
-      my.hat.useWord(currentWord).then(() => close())
+      my.hat.useWord(currentWord).then(() => {
+        my.updateCount()
+        showStats()
+      })
     })
 
-    $('.didnt-use-word').click(() => {
-      close()
-    })
+    $('.didnt-use-word').click(() => showStats())
+
+    $('#final-stats .button').click(() => close())
 
     $timer = $('#timer')
   }
@@ -61,6 +64,11 @@ window.Turn = (my => {
 
   const endOfTurn = () => {
     $('#end-of-turn').show()
+  }
+
+  const showStats = () => {
+    $('#end-of-turn').hide()
+    $('#final-stats').show()
   }
 
   const close = () => {
