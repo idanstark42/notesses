@@ -50,6 +50,7 @@ input[type="text"] {
   align-items: center;
   padding-bottom: 3rem;
   width: 100%;
+  cursor: pointer;
 }
 
 #turn .stats {
