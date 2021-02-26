@@ -1,7 +1,7 @@
 window.Turn = (my => {
 
   const END_OF_STEP = 'END OF STEP'
-  const DURATION = 5
+  const DURATION = 60
   
   let currentWord
   let $timer
